@@ -1,6 +1,8 @@
 using RoyalKiddiesWard.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using RoyalKiddiesWard.Data;
+using RoyalKiddiesWard.Application.Services.Interfaces;
+using RoyalKiddiesWard.Application.Services.Implementation;
 
 namespace RoyalKiddiesWard.API
 {
@@ -11,7 +13,8 @@ namespace RoyalKiddiesWard.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-           builder.Services.AddDbContext<RoyalKiddiesWardDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("RoyalKiddiesWardConnection")),
+            builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddDbContext<RoyalKiddiesWardDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("RoyalKiddiesWardConnection")),
              ServiceLifetime.Scoped);
          
 
